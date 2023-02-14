@@ -24,7 +24,7 @@ jobs:
   example-job:
     docker:
       # replace with your preferred image
-      - image: cimg/base:stable1
+      - image: cimg/base:stable
     steps:
       - codecov/upload        
 # Invoke jobs via workflows
