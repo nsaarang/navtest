@@ -17,10 +17,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
           name1: "path"
           command1: "pwd"
+          name: "Say hello"
+          command: "echo Hello, World!"
+          
   example-job:
     docker:
       # replace with your preferred image
