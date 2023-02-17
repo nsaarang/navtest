@@ -1,0 +1,38 @@
+version: 2.1
+working_directory: /tmp
+orbs:
+  maven: circleci/maven@1.4.0
+jobs:
+  maven_build:
+    
+    machine: 
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - run:
+          name: Installing AWS CLI
+          command: |
+            pwd
+            sudo apt-get update
+            sudo apt install python3-pip
+            sudo pip3 install awsebcli --upgrade
+      - run: mvn clean install 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  deploy:
+    machine:
+      image: ubuntu-2004:202010-01
+    steps:
+      - attach_workspace:
+          at: .
+      - run: aws s3 sync /home/circleci s3://build
+workflows:
+  build_deploy:
+    jobs:
+      - maven_build
+      - deploy:
+          requires:
+            - maven_build
+     
