@@ -1,7 +1,7 @@
 version: 2.1
 working_directory: /tmp
 orbs:
-  maven: circleci/maven@1.4.0
+  maven: circleci/Apacheant@1.9.16
 jobs:
   maven_build:
     
@@ -16,7 +16,7 @@ jobs:
             sudo apt-get update
             sudo apt install python3-pip
             sudo pip3 install awsebcli --upgrade
-      - run: mvn clean install 
+      - run: ant clean install 
       - persist_to_workspace:
           root: .
           paths:
