@@ -1,7 +1,5 @@
 version: 2.1
 working_directory: /tmp
-orbs:
-  maven: circleci/Apacheant@1.9.16
 jobs:
   maven_build:
     
