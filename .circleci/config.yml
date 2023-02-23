@@ -1,36 +1,16 @@
 version: 2.1
-working_directory: /tmp
 jobs:
-  maven_build:
-    
+  build:
     machine: 
-      image: ubuntu-2004:202010-01
+      image: image: circleci/openjdk:11-jdk-browsers 
     steps:
       - checkout
-      - run:
-          name: Installing AWS CLI
-          command: |
-            pwd
-            sudo apt-get update
-            sudo apt install python3-pip
-            sudo pip3 install awsebcli --upgrade
-      - run: ant clean install 
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  deploy:
-    machine:
-      image: ubuntu-2004:202010-01
-    steps:
-      - attach_workspace:
-          at: .
-      - run: aws s3 sync /home/circleci s3://build
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends\zip \unzip
+      - run: curl -L https://services.gradle.org/distributions/gradle-6.5.1-bin.zip -o gradle-6.5.1-bin.zip && unzip -q gradle-6.5.1-bin.zip
+      - run: ./gradlew clean build
 workflows:
-  build_deploy:
+  sap-build:
     jobs:
-      - maven_build
-      - deploy:
-          requires:
-            - maven_build
+      - build
+      
      
