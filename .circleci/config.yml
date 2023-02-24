@@ -2,15 +2,15 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11-jdk-browsers
+      image: circleci/openjdk:11-jdk-browsers
     steps:
       - checkout
-      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends\zip \unzip
-      - run: curl -L https://services.gradle.org/distributions/gradle-6.5.1-bin.zip -o gradle-6.5.1-bin.zip && unzip -q gradle-6.5.1-bin.zip
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends\zip
+          \unzip
+      - run: curl -L https://services.gradle.org/distributions/gradle-6.5.1-bin.zip -o
+          gradle-6.5.1-bin.zip && unzip -q gradle-6.5.1-bin.zip
       - run: ./gradlew clean build
 workflows:
   sap-build:
     jobs:
       - build
-      
-     
