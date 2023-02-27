@@ -15,9 +15,7 @@ jobs:
       - run:
           name: Run Sonarscanner
           command: |
-            export SONAR_SCANNER_OPTS="-Xmx2048m"
-            gradle clean test || true
-            gradle sonar:sonar \ -Dsonar.projectKey=OCA \ -Dsonar.host.url=https://sonar.deloittedigital.studio \ -Dsonar.login=2fe128d617d5f2740b8446d16ae24e05a8307c7f
+            sonar-scanner \ -Dsonar.projectKey=OCA \ -Dsonar.sources=. \ -Dsonar.host.url=https://sonar.deloittedigital.studio \ -Dsonar.login=2fe128d617d5f2740b8446d16ae24e05a8307c7f
 
 workflows:
   build:
