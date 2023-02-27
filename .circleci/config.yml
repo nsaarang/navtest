@@ -1,25 +1,44 @@
-version: 2.1
-orbs: 
-  maven: circleci/maven@1.4.0
-jobs: 
-  maven_build:
-    machine: 
-      image: ubuntu-2004:202010-01
-    steps:
-      - checkout
-      - run:
-          name: Install Sonarqube scanner
-          command: |
-            wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-            unzip sonar-scanner-cli-4.8.0.2856-linux.zip
-      - run:
-          name: Run Sonarscanner
-          command: |
-            export SONAR_SCANNER_OPTS="-Xmx2048m"
-            eval ./sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \ -Dsonar.projectKey=OCA \ -Dsonar.sources=. \ -Dsonar.host.url=https://sonar.deloittedigital.studio \ -Dsonar.login=2fe128d617d5f2740b8446d16ae24e05a8307c7f
-
+version: 2.1 
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    working_directory: ~/repo
+    environment:
+      HYBRIS_HOME: /opt/hybris
+    steps:
+      - checkout
+      - run:
+          name: Install Hybris
+          command: |
+            sudo apt-get update && \
+            sudo apt-get install -y unzip && \
+            wget https://downloads.hybris.com/download/6.7.0.0/hybris-commerce-suite-6.7.0.0.zip && \
+            unzip hybris-commerce-suite-6.7.0.0.zip && \
+            mv hybris-commerce-suite-6.7.0.0 /opt/hybris
+      - run:
+          name: Set up database
+          command: |
+            # replace with your database settings
+            sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && ./platform.sh setup \
+              --db.jdbc.url=jdbc:mysql://localhost/hybris \
+              --db.username=hybris \
+              --db.password=hybris \
+              --db.tableprefix=hybris_ \
+              --db.driver=com.mysql.jdbc.Driver \
+              --solr.config.mode=http \
+              --solr.host=localhost \
+              --solr.port=8983 \
+              --solr.indexing.mode=REALTIME"
+      - run:
+          name: Build Hybris
+          command: |
+            sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && \
+              . ./setantenv.sh && \
+              ant clean all && \
+              ant initialize && \
+              ant start"
 workflows:
-  build:
+  sap-build:
     jobs:
-      - maven_build
-  
+      - build
