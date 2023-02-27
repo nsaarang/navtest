@@ -40,4 +40,4 @@ jobs:
 workflows:
   sap-build:
     jobs:
-	  - build
+      - build
