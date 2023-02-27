@@ -9,10 +9,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Maven install without tests
-          command: |
-            mvn install -DskipTests 
-      - run:
           name: Install Sonarqube scanner
           command: |
             wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
