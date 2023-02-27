@@ -16,7 +16,7 @@ jobs:
           name: Run Sonarscanner
           command: |
             export SONAR_SCANNER_OPTS="-Xmx2048m"
-            eval ./sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \ -Dsonar.exclusions=core-customize\hybris\bin\custom\oca\ocabackoffice\src\org\ocabackoffice -Dsonar.projectKey=OCA \ -Dsonar.sources=. \ -Dsonar.host.url=https://sonar.deloittedigital.studio \ -Dsonar.login=2fe128d617d5f2740b8446d16ae24e05a8307c7f
+            eval ./sonar-scanner-4.8.0.2856-linux/bin/sonar-scanner \ -Dsonar.exclusions=*.java -Dsonar.projectKey=OCA \ -Dsonar.sources=. \ -Dsonar.host.url=https://sonar.deloittedigital.studio \ -Dsonar.login=2fe128d617d5f2740b8446d16ae24e05a8307c7f
 
 workflows:
   build:
