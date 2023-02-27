@@ -21,14 +21,14 @@ jobs:
           command: |
             sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && ./platform.sh setup \
             --db.jdbc.url=jdbc:mysql://localhost/hybris \
-	    --db.username=hybris \
-	    --db.password=hybris \
-	    --db.tableprefix=hybris_ \
-	    --db.driver=com.mysql.jdbc.Driver \
-	    --solr.config.mode=http \
-	    --solr.host=localhost \
-	    --solr.port=8983 \
-	    --solr.indexing.mode=REALTIME"
+            --db.username=hybris \
+            --db.password=hybris \
+            --db.tableprefix=hybris_ \
+            --db.driver=com.mysql.jdbc.Driver \
+            --solr.config.mode=http \
+            --solr.host=localhost \
+            --solr.port=8983 \
+            --solr.indexing.mode=REALTIME"
       - run:
           name: Build hybris
           command: |
