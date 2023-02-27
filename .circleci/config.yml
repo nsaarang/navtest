@@ -14,11 +14,11 @@ jobs:
             sudo apt-get update && \
             sudo apt-get install -y unzip && \
             wget https://downloads.hybris.com/download/6.7.0.0/hybris-commerce-suite-6.7.0.0.zip && \
-	    unzip hybris-commerce-suite-6.7.0.0.zip && \
-	    mv hybris-commerce-suite-6.7.0.0 /opt/hybris
+            unzip hybris-commerce-suite-6.7.0.0.zip && \
+            mv hybris-commerce-suite-6.7.0.0 /opt/hybris
       - run:
-	  name: setup database
-	  command: |
+          name: setup database
+          command: |
             sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && ./platform.sh setup \
             --db.jdbc.url=jdbc:mysql://localhost/hybris \
 	    --db.username=hybris \
@@ -30,8 +30,8 @@ jobs:
 	    --solr.port=8983 \
 	    --solr.indexing.mode=REALTIME"
       - run:
-	  name: Build hybris
-	  command: |
+          name: Build hybris
+          command: |
             sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && \
 	    . ./setantenv.sh && \
 	    ant clean all && \
