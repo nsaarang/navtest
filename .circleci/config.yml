@@ -33,10 +33,10 @@ jobs:
           name: Build hybris
           command: |
             sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && \
-	    . ./setantenv.sh && \
-	    ant clean all && \
-	    ant initialize && \
-	    ant start"
+            . ./setantenv.sh && \
+            ant clean all && \
+            ant initialize && \
+            ant start"
 workflows:
   sap-build:
     jobs:
