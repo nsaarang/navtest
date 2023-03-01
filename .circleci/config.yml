@@ -9,7 +9,7 @@ jobs:
           name: Build sap code 
           command: |
             cd /opt && unzip hybris.zip
-            cp oca-commerce/core-customize/hybris/bin/custom /opt/hybris/bin
+            cp -r oca-commerce/core-customize/hybris/bin/ /opt/hybris/bin/
             cp oca-commerce/core-customize/hybris/config/localdev.properties /opt/hybris/config/local.properties
             cp oca-commerce/core-customize/hybris/config/localextensions.xml /opt/hybris/config
             chmod -R 777 /opt/hybris/bin/platform
