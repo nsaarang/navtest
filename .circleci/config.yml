@@ -1,45 +1,22 @@
 version: 2.1
 jobs:
-  build:
+  sap-build:
     docker:
-      - image: circleci/openjdk:11-jdk
-    working_directory: ~/repo
-    environment:
-      HYBRIS_HOME: /opt/hybris
+      - image: navoday/hybriszip
     steps:
       - checkout
       - run:
-          name: InstallHybris
+          name: Build sap code 
           command: |
-            sudo apt-get update && \
-            sudo apt-get install -y unzip && \
-            wget https://downloads.hybris.com/download/6.7.0.0/hybris-commerce-suite-6.7.0.0.zip && \
-            unzip hybris-commerce-suite-6.7.0.0.zip && \
-            mv hybris-commerce-suite-6.7.0.0 /opt/hybris
-      - run:
-          name: setup database
-          command: |
-            sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && ./platform.sh setup \
-            --db.jdbc.url=jdbc:mysql://localhost/hybris \
-            --db.username=hybris \
-            --db.password=hybris \
-            --db.tableprefix=hybris_ \
-            --db.driver=com.mysql.jdbc.Driver \
-            --solr.config.mode=http \
-            --solr.host=localhost \
-            --solr.port=8983 \
-            --solr.indexing.mode=REALTIME"
-      - run:
-          name: Build hybris
-          command: |
-            sudo su - hybris -c "cd $HYBRIS_HOME/bin/platform && \
-            . ./setantenv.sh && \
-            ant clean all && \
-            ant initialize && \
-            ant start"
+            cd /opt && unzip hybris.zip
+            cp oca-commerce/core-customize/hybris/bin/custom /opt/hybris/bin
+            cp oca-commerce/core-customize/hybris/config/localdev.properties /opt/hybris/config/local.properties
+            cp oca-commerce/core-customize/hybris/config/localextensions.xml /opt/hybris/config
+            chmod -R 777 /opt/hybris/bin/platform
+            cd /opt/hybris/bin/platform
+            ./hybrisserver.sh
+            ant clean all -Dinput.template=develop
 workflows:
-  sap-build:
+  build:
     jobs:
-      - build
-      
-     
+      - sap-build
