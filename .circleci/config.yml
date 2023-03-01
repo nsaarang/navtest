@@ -13,11 +13,11 @@ jobs:
             cp -rf core-customize/hybris/config/localextensions.xml /opt/hybris/config
             cd /opt/hybris/
             ls
-            #chmod -R 777 /opt/hybris/bin/platform
-            #cd /opt/hybris/bin/platform
-            #./hybrisserver.sh
-            #sleep 10
-            #ant clean all 
+            chmod -R 777 /opt/hybris/bin/platform
+            cd /opt/hybris/bin/platform
+            ./hybrisserver.sh
+            sleep 10
+            ant clean all 
 workflows:
   build:
     jobs:
