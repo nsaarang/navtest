@@ -13,7 +13,7 @@ jobs:
             cp -rf core-customize/hybris/config/localextensions.xml /opt/hybris/config
             chmod -R 777 /opt/hybris/bin/platform
             cd /opt/hybris/bin/platform
-            sleep 10
+            ./setantenv.sh
             ant clean all 
 workflows:
   build:
