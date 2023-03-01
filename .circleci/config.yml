@@ -17,7 +17,7 @@ jobs:
             #cd /opt/hybris/bin/platform
             #./hybrisserver.sh
             #sleep 10
-            #ant clean all -Dinput.template=develop
+            #ant clean all 
 workflows:
   build:
     jobs:
