@@ -8,11 +8,14 @@ jobs:
       - run:
           name: Build sap code 
           command: |
-            ls
-            #chmod -R 777 /opt/hybris/bin/platform
-            #cd /opt/hybris/bin/platform
-            #./hybrisserver.sh
-            #ant clean all -Dinput.template=develop
+            cp -rf core-customize/hybris/bin/custom /opt/hybris/bin/
+            cp -rf core-customize/hybris/config/localdev.properties /opt/hybris/config/local.properties
+            cp -rf core-customize/hybris/config/localextensions.xml /opt/hybris/config
+            chmod -R 777 /opt/hybris/bin/platform
+            cd /opt/hybris/bin/platform
+            ./hybrisserver.sh
+            sleep 10
+            ant clean all -Dinput.template=develop
 workflows:
   build:
     jobs:
