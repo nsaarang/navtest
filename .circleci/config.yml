@@ -18,14 +18,14 @@ jobs:
       - run:
           name: Install Sonarqube scanner
           command: |
-            apt-get https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-            unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+            curl -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip -o sonarscanner.zip
+            unzip -qq sonarscanner.zip
       - run:
           name: Run Sonarscanner
           command: |
             export SONAR_SCANNER_OPTS="-Xmx2048m"
             ant clean test || true
-            ant sonar check install sonar:sonar -Dsonar.sources=. -Dsonar.java.libraries=target/* -Dsonar.java.binaries=target/classes -Dsonar.language=java -Dant.test.failure.ignore=true -Dsonar.projectKey=OCA -Dsonar.host.url=https://sonar.deloittedigital.studio -Dsonar.login=a8cf16b7391d1872c4660d2d7054833ae4d8dc8d
+            ant sonarcheck -Dsonar.sources=. -Dsonar.java.libraries=target/* -Dsonar.java.binaries=target/classes -Dsonar.language=java -Dant.test.failure.ignore=true -Dsonar.projectKey=OCA -Dsonar.host.url=https://sonar.deloittedigital.studio -Dsonar.login=a8cf16b7391d1872c4660d2d7054833ae4d8dc8d
 workflows:
   build:
     jobs:
