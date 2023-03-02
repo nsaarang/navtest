@@ -18,7 +18,7 @@ jobs:
       - run:
           name: Install Sonarqube scanner
           command: |
-            apt-get -s -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip -o sonarscanner.zip
+            apt-get https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip -o sonarscanner.zip
             unzip -qq sonarscanner.zip
       - run:
           name: Run Sonarscanner
