@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Run Sonarscanner
           command: |
-            ls
+            cd /platform
             export SONAR_SCANNER_OPTS="-Xmx2048m"
             ant clean test || true
             ant sonar-check -Dsonar.sources=. -Dsonar.java.libraries=target/* -Dsonar.java.binaries=target/classes -Dsonar.language=java -Dant.test.failure.ignore=true -Dsonar.projectKey=OCA -Dsonar.host.url=https://sonar.deloittedigital.studio -Dsonar.login=a8cf16b7391d1872c4660d2d7054833ae4d8dc8d
