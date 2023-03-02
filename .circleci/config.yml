@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   sap-build:
     docker:
-      - image: navoday/hybrisbuildojdk
+      - image: navoday/hybrisojdk
     steps:
       - checkout
       - run:
