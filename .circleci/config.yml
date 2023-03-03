@@ -16,18 +16,10 @@ jobs:
             ./setantenv.sh
             ant clean all 
       - run:
-          name: Install Sonarqube scanner
-          command: |
-            apt-get update -y
-            apt-get install wget -y
-            wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
-            unzip sonar-scanner-cli-4.8.0.2856-linux.zip
-      - run:
-          name: Run Sonarscanner
+          name: Run Sonarcheck
           command: |
             cd /opt/hybris/bin/platform
-            export SONAR_SCANNER_OPTS="-Xmx2048m"
-            ant sonarcheck -Dsonar.projectKey=OCA -Dsonar.sources=. -Dsonar.host.url=https://sonar.deloittedigital.studio -Dsonar.login=a8cf16b7391d1872c4660d2d7054833ae4d8dc8d
+            ant sonarcheck 
 workflows:
   build:
     jobs:
